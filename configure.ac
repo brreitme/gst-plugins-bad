@@ -2234,6 +2234,12 @@ AG_GST_CHECK_FEATURE(DECKLINK, [decklink], decklink, [
            ])
        fi
        ;;
+     *-mingw*)
+       HAVE_DECKLINK=yes
+       DECKLINK_CXXFLAGS=
+       DECKLINK_LIBS="-loleaut32"
+       HAVE_DECKLINK_WIN=yes
+       ;;
      *)
        HAVE_DECKLINK=no
        ;;
@@ -2243,6 +2249,7 @@ AG_GST_CHECK_FEATURE(DECKLINK, [decklink], decklink, [
    AC_SUBST(DECKLINK_LIBS)
 ])
 AM_CONDITIONAL(DECKLINK_OSX, test "x$HAVE_DECKLINK_OSX" = xyes)
+AM_CONDITIONAL(DECKLINK_WIN, test "x$HAVE_DECKLINK_WIN" = xyes)
 
 dnl **** DirectFB ****
 translit(dnm, m, l) AM_CONDITIONAL(USE_DIRECTFB, true)
