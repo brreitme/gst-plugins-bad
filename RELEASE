@@ -1,16 +1,15 @@
 
-Release notes for GStreamer Bad Plugins 1.12.0
+Release notes for GStreamer Bad Plugins 1.12.2
 
-The GStreamer team is pleased to announce the first release in the stable 1.12
-release series. The 1.12 release series is adding new features on top of the
-1.0, 1.2, 1.4, 1.6, 1.8 and 1.10 series and is part of the API and ABI-stable
-1.x release series of the GStreamer multimedia framework.
+The GStreamer team is proud to announce the second bugfix release in the stable
+1.12 release series of your favourite cross-platform multimedia framework!
 
 
-Full release notes can be found here
+This release only contains bugfixes and it is safe to update from 1.12.x. For a
+full list of bugfixes see Bugzilla.
 
 
-Binaries for Android, iOS, Mac OS X and Windows will be provided in the next days.
+See /releases/1.12/ for the full release notes.
 
 
 "That an accusation?"
@@ -61,12 +60,18 @@ contains a set of codecs plugins based on libav (formerly gst-ffmpeg)
 
 Bugs fixed in this release
      
-      * 773681 : directsoundsink: High cpu usage on windows x86
-      * 764947 : autodetect: bring element down to NULL on a successful choice
-      * 780976 : webrtcdsp: do not fail to start if webrtcechoprobe is not found
-      * 782046 : glupload: passthrough composition caps features in directviv upload
-      * 782119 : meson: ext/hls/libgsthls.so needs -lm
-      * 782078 : qtkitvideosrc: Removed in order to avoid obsolete APIs
+      * 764025 : mxfdemux: Two consecutive seek on a file leads to 'No valid frames decoded before end of stream'
+      * 773159 : hlsdemux: Errors and timeouts with scrubbing and fast forward/reverse
+      * 782774 : kmssink: drop last rendered buffer on ALLOCATION and DRAIN queries
+      * 783028 : gstmpdparser : Crash when playing some of the Dash LIVE URL's with Gstreamer v1.12
+      * 783075 : adaptivedemux: Check live seeking range more often
+      * 783244 : dashdemux: Implement a default presentation delay
+      * 784027 : mxfdemux/mux: Does not handle frame reordering correctly
+      * 784059 : gstglwindow_cocoa.h is missing from tar ball in gst-plugins-bad 1.12.1
+      * 784210 : gl: [regression] GstGLUploadMeta feature doesn't show frame in GLX
+      * 784439 : homebrew fails to build ttmp plugin: library not found for -lgstvideo-1.0
+      * 784510 : HLS/playbin: bus receives EOS on potential re-buffering
+      * 784755 : directsoundsrc: fails to compile with gcc 7.1.0
 
 ==== Download ====
 
@@ -103,10 +108,13 @@ subscribe to the gstreamer-devel list.
         
 Contributors to this release
     
-      * George Kiagiadakis
-      * Haihua Hu
-      * Josep Torra
+      * Edward Hervey
+      * Hyunjun Ko
+      * Jan Schmidt
+      * Matthew Waters
+      * Nicolas Dufresne
+      * Philippe Renon
       * Sebastian Dröge
+      * Thiago Santos
       * Tim-Philipp Müller
-      * Ting-Wei Lan
  

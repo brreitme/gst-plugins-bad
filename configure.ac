@@ -3,7 +3,7 @@ AC_PREREQ([2.69])
 dnl initialize autoconf
 dnl when going to/from release please set the nano (fourth number) right !
 dnl releases only do Wall, git and prerelease does Werror too
-AC_INIT([GStreamer Bad Plug-ins],[1.12.0],[http://bugzilla.gnome.org/enter_bug.cgi?product=GStreamer],[gst-plugins-bad])
+AC_INIT([GStreamer Bad Plug-ins],[1.12.2],[http://bugzilla.gnome.org/enter_bug.cgi?product=GStreamer],[gst-plugins-bad])
 
 AG_GST_INIT
 
@@ -51,7 +51,7 @@ dnl - interfaces added/removed/changed -> increment CURRENT, REVISION = 0
 dnl - interfaces added -> increment AGE
 dnl - interfaces removed -> AGE = 0
 dnl sets GST_LT_LDFLAGS
-AS_LIBTOOL(GST, 1200, 0, 1200)
+AS_LIBTOOL(GST, 1202, 0, 1202)
 
 dnl *** required versions of GStreamer stuff ***
 GST_REQ=1.12.0
@@ -2910,9 +2910,18 @@ AG_GST_CHECK_FEATURE(QT, [Qt elements], qt, [
   PKG_CHECK_MODULES(QT, Qt5Core Qt5Gui Qt5Qml Qt5Quick >= 5.4.0, [
       QT_PATH=`$PKG_CONFIG --variable=exec_prefix Qt5Core`
       QT_HOST_PATH=`$PKG_CONFIG --variable=host_bins Qt5Core`
-      AC_PATH_PROGS(MOC, [moc-qt5 moc], moc, ["${QT_HOST_PATH}" "${QT_PATH}/bin"])
-      AC_PATH_PROGS(RCC, [rcc-qt5 rcc], rcc, ["${QT_HOST_PATH}" "${QT_PATH}/bin"])
-      AC_PATH_PROGS(UIC, [uic-qt5 uic], uic, ["${QT_HOST_PATH}" "${QT_PATH}/bin"])
+      AC_ARG_WITH([moc],
+           AS_HELP_STRING([--with-moc], [Set location of qt moc tool]),
+           [MOC=$withval])
+      AC_PATH_PROGS(MOC, [moc-qt5 moc], [moc], ["${QT_HOST_PATH}" "${QT_PATH}/bin"])
+      AC_ARG_WITH([rcc],
+           AS_HELP_STRING([--with-rcc], [Set location of qt rcc tool]),
+           [RCC=$withval])
+      AC_PATH_PROGS(RCC, [rcc-qt5 rcc], [rcc], ["${QT_HOST_PATH}" "${QT_PATH}/bin"])
+      AC_ARG_WITH([uic],
+               AS_HELP_STRING([--with-uic], [Set location of qt uic tool]),
+               [UIC=$withval])
+      AC_PATH_PROGS(UIC, [uic-qt5 uic], [uic], ["${QT_HOST_PATH}" "${QT_PATH}/bin"])
       if test "x$MOC" = "x" || test "x$UIC" = "x" || test "x$RCC" = "x"; then
         AC_MSG_WARN([One of the required qt build programs was not found])
         HAVE_QT="no"

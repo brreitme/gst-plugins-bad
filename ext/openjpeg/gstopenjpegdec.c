@@ -307,14 +307,13 @@ fill_frame_packed8_3 (GstVideoFrame * frame, opj_image_t * image)
     tmp = data_out;
 
     for (x = 0; x < w; x++) {
-      tmp[1] = off[0] + *data_in[0];
-      tmp[2] = off[1] + *data_in[1];
-      tmp[3] = off[2] + *data_in[2];
-
-      tmp += 4;
+      tmp[0] = off[0] + *data_in[0];
+      tmp[1] = off[1] + *data_in[1];
+      tmp[2] = off[2] + *data_in[2];
       data_in[0]++;
       data_in[1]++;
       data_in[2]++;
+      tmp += 3;
     }
     data_out += dstride;
   }
@@ -1011,6 +1010,9 @@ gst_openjpeg_dec_handle_frame (GstVideoDecoder * decoder,
 
   if (!gst_buffer_map (frame->input_buffer, &map, GST_MAP_READ))
     goto map_read_error;
+
+  if (self->is_jp2c && map.size < 8)
+    goto open_error;
 
 #ifdef HAVE_OPENJPEG_1
   io = opj_cio_open ((opj_common_ptr) dec, map.data + (self->is_jp2c ? 8 : 0),

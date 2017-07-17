@@ -1,28 +1,30 @@
 # Bulgarian translation of gst-plugins-bad.
 # Copyright (C) 2007, 2008, 2009, 2010, 2011, 2016 Free Software Fondation, Inc.
+# Copyright (C) 2017 Free Software Fondation, Inc.
 # This file is distributed under the same license as the gst-plugins-bad package.
 # Alexander Shopov <ash@kambanaria.org>, 2007, 2008, 2009, 2010, 2011, 2016.
-#
+# Alexander Shopov <ash@kambanaria.org>, 2017.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gst-plugins-bad 1.7.2\n"
+"Project-Id-Version: gst-plugins-bad 1.12.0\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/\n"
-"POT-Creation-Date: 2017-05-04 15:09+0300\n"
-"PO-Revision-Date: 2016-02-21 21:03+0200\n"
+"POT-Creation-Date: 2017-07-14 13:33+0300\n"
+"PO-Revision-Date: 2017-05-08 11:49+0200\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@ludost.net>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 msgid "failed to draw pattern"
-msgstr ""
+msgstr "шарката не може да се изобрази"
 
 msgid "A GL error occured"
-msgstr ""
+msgstr "Грешка от GL"
 
 msgid "format wasn't negotiated before get function"
 msgstr "форматът не е бил уточнен преди извикване на функцията за получаване"
@@ -103,65 +105,28 @@ msgstr "Системите за доставка от устройството �
 msgid "Could not open file \"%s\" for reading."
 msgstr "Файлът „%s“ не може да се отвори за четене."
 
-#, fuzzy
 msgid "Couldn't find channel configuration file"
-msgstr ""
-"Файлът с настройките на цифровото видеоръзпръскване (DVB) не може да бъде "
-"открит"
+msgstr "Файлът с настройките на каналите не може да бъде открит"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't load channel configuration file: '%s'"
-msgstr ""
-"Файлът с настройките на цифровото видеоръзпръскване (DVB) „%s“ не може да "
-"бъде прочетен"
+msgstr "Файлът с настройките на каналите не може да бъде прочетен: „%s“"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't find details for channel '%s'"
-msgstr "Липсват данни за канала за цифрово видеоръзпръскване (DVB) „%s“"
+msgstr "Липсват данни за канала „%s“"
 
-#, fuzzy, c-format
+#, c-format
 msgid "No properties for channel '%s'"
-msgstr "Липсват данни за канала за цифрово видеоръзпръскване (DVB) „%s“"
+msgstr "Липсват данни за канала „%s“"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to set properties for channel '%s'"
-msgstr "Липсват данни за канала за цифрово видеоръзпръскване (DVB) „%s“"
+msgstr "Свойствата на канала „%s“ не могат да бъдат зададени"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't find channel configuration file: '%s'"
-msgstr ""
-"Файлът с настройките на цифровото видеоръзпръскване (DVB) не може да бъде "
-"открит"
+msgstr "Файлът с настройките на каналите не може да бъде открит: „%s“"
 
-#, fuzzy
 msgid "Channel configuration file doesn't contain any channels"
-msgstr ""
-"Файлът с настройките на цифровото видеоръзпръскване (DVB) не съдържа никакви "
-"канали"
-
-#~ msgid "Could not establish connection to sndio"
-#~ msgstr "Не може да се установи връзка към sndio"
-
-#~ msgid "Failed to query sndio capabilities"
-#~ msgstr "Неуспешно запитване за възможностите на sndio"
-
-#~ msgid "Could not configure sndio"
-#~ msgstr "Не може да се настрои sndio"
-
-#~ msgid "Could not start sndio"
-#~ msgstr "Не може да се стартира sndio"
-
-#~ msgid "No file name specified for writing."
-#~ msgstr "Не е указано име на файл за запис."
-
-#~ msgid ""
-#~ "Given file name \"%s\" can't be converted to local file name encoding."
-#~ msgstr ""
-#~ "Зададеното име на файл „%s“ не може да бъде прехвърлено в локалното "
-#~ "кодиране на имена на файлове."
-
-#~ msgid "Could not open file \"%s\" for writing."
-#~ msgstr "Файлът „%s“ не може да се отвори за запис."
-
-#~ msgid "Internal data flow error."
-#~ msgstr "Вътрешна грешка в потока на данни."
+msgstr "Файлът с настройките на каналите не съдържа никакви канали"

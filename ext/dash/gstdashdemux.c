@@ -205,7 +205,7 @@ enum
 #define DEFAULT_MAX_VIDEO_HEIGHT          0
 #define DEFAULT_MAX_VIDEO_FRAMERATE_N     0
 #define DEFAULT_MAX_VIDEO_FRAMERATE_D     1
-#define DEFAULT_PRESENTATION_DELAY     NULL     /* zero */
+#define DEFAULT_PRESENTATION_DELAY     "10s"    /* 10s */
 
 /* Clock drift compensation for live streams */
 #define SLOW_CLOCK_UPDATE_INTERVAL  (1000000 * 30 * 60) /* 30 minutes */
@@ -530,7 +530,7 @@ gst_dash_demux_init (GstDashDemux * demux)
   demux->max_video_height = DEFAULT_MAX_VIDEO_HEIGHT;
   demux->max_video_framerate_n = DEFAULT_MAX_VIDEO_FRAMERATE_N;
   demux->max_video_framerate_d = DEFAULT_MAX_VIDEO_FRAMERATE_D;
-  demux->default_presentation_delay = DEFAULT_PRESENTATION_DELAY;
+  demux->default_presentation_delay = g_strdup (DEFAULT_PRESENTATION_DELAY);
 
   g_mutex_init (&demux->client_lock);
 
@@ -723,6 +723,7 @@ gst_dash_demux_setup_all_streams (GstDashDemux * demux)
           (stream), tags);
     stream->index = i;
     stream->pending_seek_ts = GST_CLOCK_TIME_NONE;
+    stream->sidx_position = GST_CLOCK_TIME_NONE;
     if (active_stream->cur_adapt_set &&
         active_stream->cur_adapt_set->RepresentationBase &&
         active_stream->cur_adapt_set->RepresentationBase->ContentProtection) {
@@ -1786,6 +1787,7 @@ gst_dash_demux_update_manifest_data (GstAdaptiveDemux * demux,
     guint period_idx;
     GList *iter;
     GList *streams_iter;
+    GList *streams;
 
     /* prepare the new manifest and try to transfer the stream position
      * status from the old manifest client  */
@@ -1824,8 +1826,18 @@ gst_dash_demux_update_manifest_data (GstAdaptiveDemux * demux,
       return GST_FLOW_ERROR;
     }
 
+    /* If no pads have been exposed yet, need to use those */
+    streams = NULL;
+    if (demux->streams == NULL) {
+      if (demux->prepared_streams) {
+        streams = demux->prepared_streams;
+      }
+    } else {
+      streams = demux->streams;
+    }
+
     /* update the streams to play from the next segment */
-    for (iter = demux->streams, streams_iter = new_client->active_streams;
+    for (iter = streams, streams_iter = new_client->active_streams;
         iter && streams_iter;
         iter = g_list_next (iter), streams_iter = g_list_next (streams_iter)) {
       GstDashDemuxStream *demux_stream = iter->data;
@@ -1936,8 +1948,6 @@ static void
 gst_dash_demux_advance_period (GstAdaptiveDemux * demux)
 {
   GstDashDemux *dashdemux = GST_DASH_DEMUX_CAST (demux);
-
-  g_return_if_fail (gst_mpd_client_has_next_period (dashdemux->client));
 
   if (demux->segment.rate >= 0) {
     if (!gst_mpd_client_set_period_index (dashdemux->client,
