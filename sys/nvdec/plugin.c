@@ -34,7 +34,7 @@
 static gboolean
 plugin_init (GstPlugin * plugin)
 {
-  return gst_element_register (plugin, "nvdec", GST_RANK_PRIMARY,
+  return gst_element_register (plugin, "nvdec", GST_RANK_PRIMARY + 1,
       GST_TYPE_NVDEC);
 }
 
