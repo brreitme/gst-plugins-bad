@@ -1503,10 +1503,23 @@ duration_changed_signal_data_free (DurationChangedSignalData * data)
 static void
 emit_duration_changed (GstPlayer * self, GstClockTime duration)
 {
+  gboolean updated = FALSE;
+
+  g_return_if_fail (self->cached_duration != duration);
+
   GST_DEBUG_OBJECT (self, "Duration changed %" GST_TIME_FORMAT,
       GST_TIME_ARGS (duration));
 
   self->cached_duration = duration;
+  g_mutex_lock (&self->lock);
+  if (self->media_info) {
+    self->media_info->duration = duration;
+    updated = TRUE;
+  }
+  g_mutex_unlock (&self->lock);
+  if (updated) {
+    emit_media_info_updated_signal (self);
+  }
 
   if (g_signal_handler_find (self, G_SIGNAL_MATCH_ID,
           signals[SIGNAL_DURATION_CHANGED], 0, NULL, NULL, NULL) != 0) {
@@ -4681,7 +4694,7 @@ gst_player_config_get_seek_accurate (const GstStructure * config)
  */
 GstSample *
 gst_player_get_video_snapshot (GstPlayer * self,
-    GstPlayerSnapshotFormat format, GstStructure * config)
+    GstPlayerSnapshotFormat format, const GstStructure * config)
 {
   gint video_tracks = 0;
   GstSample *sample = NULL;

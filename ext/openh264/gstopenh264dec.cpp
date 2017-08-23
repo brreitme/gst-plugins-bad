@@ -234,13 +234,15 @@ gst_openh264dec_handle_frame (GstVideoDecoder * decoder,
     }
 
     gst_buffer_unmap (frame->input_buffer, &map_info);
+    if (ret != dsErrorFree)
+      return gst_video_decoder_drop_frame (decoder, frame);
+
     gst_video_codec_frame_unref (frame);
     frame = NULL;
   } else {
     memset (&dst_buf_info, 0, sizeof (SBufferInfo));
     ret = openh264dec->decoder->DecodeFrame2 (NULL, 0, yuvdata, &dst_buf_info);
     if (ret != dsErrorFree) {
-      gst_video_codec_frame_unref (frame);
       return GST_FLOW_EOS;
     }
   }
