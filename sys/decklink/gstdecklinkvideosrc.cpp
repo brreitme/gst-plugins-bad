@@ -880,12 +880,13 @@ gst_decklink_video_src_create (GstPushSrc * bsrc, GstBuffer ** buffer)
   GST_BUFFER_DURATION (*buffer) = f.duration;
   if (f.tc != NULL)
     gst_buffer_add_video_time_code_meta (*buffer, f.tc);
-  gst_buffer_add_reference_timestamp_meta (*buffer,
-      gst_static_caps_get (&stream_reference), f.stream_timestamp,
-      f.stream_duration);
-  gst_buffer_add_reference_timestamp_meta (*buffer,
-      gst_static_caps_get (&hardware_reference), f.hardware_timestamp,
-      f.hardware_duration);
+//Brad
+//  gst_buffer_add_reference_timestamp_meta (*buffer,
+//      gst_static_caps_get (&stream_reference), f.stream_timestamp,
+//      f.stream_duration);
+//  gst_buffer_add_reference_timestamp_meta (*buffer,
+//      gst_static_caps_get (&hardware_reference), f.hardware_timestamp,
+//      f.hardware_duration);
 
   mode = gst_decklink_get_mode (self->mode);
   if (mode->interlaced && mode->tff)

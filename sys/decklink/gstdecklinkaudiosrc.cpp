@@ -706,12 +706,13 @@ retry:
   GST_BUFFER_TIMESTAMP (*buffer) = timestamp;
   GST_BUFFER_DURATION (*buffer) = duration;
 
-  gst_buffer_add_reference_timestamp_meta (*buffer,
-      gst_static_caps_get (&stream_reference), p.stream_timestamp,
-      p.stream_duration);
-  gst_buffer_add_reference_timestamp_meta (*buffer,
-      gst_static_caps_get (&hardware_reference), p.hardware_timestamp,
-      p.hardware_duration);
+//Brad
+//  gst_buffer_add_reference_timestamp_meta (*buffer,
+//      gst_static_caps_get (&stream_reference), p.stream_timestamp,
+//      p.stream_duration);
+//  gst_buffer_add_reference_timestamp_meta (*buffer,
+//      gst_static_caps_get (&hardware_reference), p.hardware_timestamp,
+//      p.hardware_duration);
 
   GST_DEBUG_OBJECT (self,
       "Outputting buffer %p with timestamp %" GST_TIME_FORMAT " and duration %"
